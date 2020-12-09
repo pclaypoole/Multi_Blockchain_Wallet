@@ -40,6 +40,12 @@ def create_tx(coin, account, to, amount):
     if coin == BTCTEST 
         return PrivateKeyTestnet.prepare_transaction(account.address, [(to, amount, BTC)])
 
+def send_tx(coin, account, to, amount):
+    if coin == ETH: 
+        return w3.eth.sendRawTransaction(signed.rawTransaction)
+    if coin == BTCTEST: 
+        return NetworkAPI.broadcast_tx_testnet(signed)
+
 create_tx(ETH, account = coins[ETH][0]["address"], to, 50)
 coins = {ETH: derive_wallets(ETH, mnemonic),
         BTCTEST: derive_wallets(BTCTEST, mnemonic),
