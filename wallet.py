@@ -28,16 +28,17 @@ def create_tx(coin, account, to, amount):
     gas_estimate = web3.eth.estimateGas({'to': to, 
     'from': account["address"], 
     'value': amount})
+    gas_price = web3.eth.gasPrice
 
     if coin == ETH:
         return {"to": to, 
         "from": account, 
         "value": value, 
         "gas": gas_estimate, 
-        "gasPrice":, 
-        "nonce": , 
-        "chainID": }
-    if coin == BTCTEST 
+        "gasPrice": gas_price,
+        "nonce": 1,
+        "chainID": 972}
+    if coin == BTCTEST:
         return PrivateKeyTestnet.prepare_transaction(account.address, [(to, amount, BTC)])
 
 def send_tx(coin, account, to, amount):
@@ -46,16 +47,18 @@ def send_tx(coin, account, to, amount):
     if coin == BTCTEST: 
         return NetworkAPI.broadcast_tx_testnet(signed)
 
-create_tx(ETH, account = coins[ETH][0]["address"], to, 50)
+def raw_tx(creat_tx):
+    if coin == ETH:
+        return w3.eth.sendRawTransaction(signed.rawTransaction)
+
+    if coin == BTCTEST:
+        return NetworkAPI.broadcast_tx_testnet(signed)
+
+#create_tx(ETH, account = coins[ETH][0]["address"], to, 50)
 coins = {ETH: derive_wallets(ETH, mnemonic),
-        BTCTEST: derive_wallets(BTCTEST, mnemonic),
+        BTCTEST: derive_wallets(BTCTEST, mnemonic)
         }
 
-print(coins[ETH][0]["address"])
+#print(coins[ETH][0]["address"])
 #pprint(coins)
-
-
-
-
-
-
+print(raw_tx)
