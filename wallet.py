@@ -60,5 +60,10 @@ coins = {ETH: derive_wallets(ETH, mnemonic),
         }
 
 #print(coins[ETH][0]["address"])
-#pprint(coins)
-print(raw_tx)
+pprint(coins)
+#print(create_tx)
+
+
+from web3.middleware import geth_poa_middleware
+
+w3.middleware_onion.inject(geth_poa_middleware, layer=0)
